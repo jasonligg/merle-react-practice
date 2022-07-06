@@ -16,7 +16,6 @@ const MessageList = () => {
 
   return (
     <div>
-      <button onClick={getMessages}>Refresh</button>
       <br />
       {messages.map((message, idx) => (
         <MessageItem key={idx} message={message} />
