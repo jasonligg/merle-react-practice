@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import MessageItem from "./MessageItem";
+import MessageCreateForm from "./MessageCreateForm";
 
 const MessageList = () => {
   const [messages, setMessages] = useState([]);
@@ -16,10 +17,12 @@ const MessageList = () => {
 
   return (
     <div>
+       <MessageCreateForm/>
       <br />
       {messages.map((message, idx) => (
         <MessageItem key={idx} message={message} />
       ))}
+     
     </div>
   );
 };
