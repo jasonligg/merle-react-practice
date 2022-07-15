@@ -1,24 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import MessageItem from "./MessageItem";
 import MessageCreateForm from "./MessageCreateForm";
 
 const MessageList = () => {
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    const getMessages = async () => {
-      const res = await fetch("http://localhost:3001/api/messages");
-      const data = await res.json();
+  const getMessages = useCallback( async () => {
+    const res = await fetch("http://localhost:3001/api/messages");
+    const data = await res.json();
+    setMessages(data);
+  }, [])
 
-      setMessages(data);
-    };
+  useEffect(() => {
     getMessages();
-  }, []);
+  }, [getMessages]);
 
   return (
     <div>
-       <MessageCreateForm/>
+       <MessageCreateForm fetchMessages={getMessages}/>
       <br />
+      <button onClick={getMessages}>Refresh Messages</button>
       {messages.map((message, idx) => (
         <MessageItem key={idx} message={message} />
       ))}
